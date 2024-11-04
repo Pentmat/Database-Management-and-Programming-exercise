@@ -1,0 +1,43 @@
+-- Creating the Genre table
+CREATE TABLE Genre (
+    genre_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    genre_name VARCHAR(100) NOT NULL
+);
+
+-- Creating the Movie table
+CREATE TABLE Movie (
+    movie_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    movie_name VARCHAR(100) NOT NULL,
+    year INT, 
+    genre_id INT,
+    FOREIGN KEY (genre_id) REFERENCES Genre(genre_id)
+);
+
+-- Creating the User_register table
+CREATE TABLE User_register (
+    register_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    register_time DATE 
+);
+
+-- Creating the Review table
+CREATE TABLE Review (
+    review_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    stars DECIMAL(2, 1),
+    review_text VARCHAR(1000), 
+    movie_id INT,
+    FOREIGN KEY (username) REFERENCES User_register(username),
+    FOREIGN KEY (movie_id) REFERENCES Movie(movie_id)
+);
+
+-- Creating the Favorite_movie table
+CREATE TABLE Favorite_movie (
+    favorite_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    movie_id INT,
+    username VARCHAR(50),
+    FOREIGN KEY (movie_id) REFERENCES Movie(movie_id),
+    FOREIGN KEY (username) REFERENCES User_register(username)
+);
