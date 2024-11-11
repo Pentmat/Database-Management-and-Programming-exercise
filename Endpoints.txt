@@ -1,0 +1,10 @@
+POST /genres: Add a new genre to the Genres table.
+POST /movies: Add a new movie to the Movies table.
+POST /users: Add a new user to the Users table.
+GET /movies/:id: Retrieve a movie by its ID from the Movies table.
+DELETE /movies/:id: Delete a movie by its ID from the Movies table.
+GET /movies: Retrieve all movies with pagination from the Movies table.
+GET /movies/search: Search for movies by keyword in the Movies table.
+POST /reviews: Add a new review to the Reviews table.
+POST /favorites: Add a movie to a user’s favorites in the Favorites table.
+GET /favorites/:username: Retrieve a user’s favorite movies from the Favorites table.
