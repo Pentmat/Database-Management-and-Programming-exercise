@@ -1,10 +1,288 @@
-POST /genres: Add a new genre to the Genres table.
-POST /movies: Add a new movie to the Movies table.
-POST /users: Add a new user to the Users table.
-GET /movies/:id: Retrieve a movie by its ID from the Movies table.
-DELETE /movies/:id: Delete a movie by its ID from the Movies table.
-GET /movies: Retrieve all movies with pagination from the Movies table.
-GET /movies/search: Search for movies by keyword in the Movies table.
-POST /reviews: Add a new review to the Reviews table.
-POST /favorites: Add a movie to a user’s favorites in the Favorites table.
-GET /favorites/:username: Retrieve a user’s favorite movies from the Favorites table.
+Endpoint Documentation
+
+
+1. POST /genres
+Description: Add a new genre to the Genres table.
+
+HTTP Method: POST
+
+URL: /genres
+
+Parameters:
+
+Body Parameters:
+genre_name (string, required): The name of the genre.
+Example Request:
+
+{
+  "genre_name": "Action"
+}
+Example Response:
+
+{
+  "genre_id": 1,
+  "genre_name": "Action",
+  "createdAt": "2024-11-30T13:01:58Z",
+  "updatedAt": "2024-11-30T13:01:58Z"
+}
+
+2. POST /movies
+Description: Add a new movie to the Movies table.
+
+HTTP Method: POST
+
+URL: /movies
+
+Parameters:
+
+Body Parameters:
+movie_name (string, required): The name of the movie.
+year (integer, optional): The release year of the movie.
+genre_id (integer, required): The ID of the genre.
+Example Request:
+
+{
+  "movie_name": "Inception",
+  "year": 2010,
+  "genre_id": 1
+}
+Example Response:
+
+{
+  "movie_id": 1,
+  "movie_name": "Inception",
+  "year": 2010,
+  "genre_id": 1,
+  "createdAt": "2024-11-30T13:01:58Z",
+  "updatedAt": "2024-11-30T13:01:58Z"
+}
+
+3. POST /users
+Description: Add a new user to the Users table.
+
+HTTP Method: POST
+
+URL: /users
+
+Parameters:
+
+Body Parameters:
+name (string, required): The name of the user.
+username (string, required): The username of the user.
+password (string, required): The password of the user.
+Example Request:
+
+{
+  "name": "John Doe",
+  "username": "johndoe",
+  "password": "securepassword"
+}
+Example Response:
+
+{
+  "register_id": 1,
+  "name": "John Doe",
+  "username": "johndoe",
+  "register_time": "2024-11-30"
+}
+
+4. GET /movies/:id
+Description: Retrieve a movie by its ID from the Movies table.
+
+HTTP Method: GET
+
+URL: /movies/:id
+
+Parameters:
+
+Path Parameter:
+id (integer, required): The ID of the movie.
+Example Request: GET /movies/1
+
+Example Response:
+
+{
+  "movie_id": 1,
+  "movie_name": "Inception",
+  "year": 2010,
+  "genre_id": 1,
+  "createdAt": "2024-11-30T13:01:58Z",
+  "updatedAt": "2024-11-30T13:01:58Z"
+}
+5. DELETE /movies/:id
+Description: Delete a movie by its ID from the Movies table.
+
+HTTP Method: DELETE
+
+URL: /movies/:id
+
+Parameters:
+
+Path Parameter:
+id (integer, required): The ID of the movie.
+Example Request: DELETE /movies/1
+
+Example Response:
+
+{
+  "message": "Movie with id 1 has been deleted."
+}
+
+6. GET /movies
+Description: Retrieve all movies with pagination from the Movies table.
+
+HTTP Method: GET
+
+URL: /movies
+
+Parameters:
+
+Query Parameters:
+page (integer, optional): The page number for pagination.
+limit (integer, optional): The number of items per page.
+Example Request: GET /movies?page=1&limit=10
+
+Example Response:
+
+{
+  "movies": [
+    {
+      "movie_id": 1,
+      "movie_name": "Inception",
+      "year": 2010,
+      "genre_id": 1,
+      "createdAt": "2024-11-30T13:01:58Z",
+      "updatedAt": "2024-11-30T13:01:58Z"
+    },
+    {
+      "movie_id": 2,
+      "movie_name": "The Matrix",
+      "year": 1999,
+      "genre_id": 2,
+      "createdAt": "2024-11-30T13:01:58Z",
+      "updatedAt": "2024-11-30T13:01:58Z"
+    }
+  ],
+  "page": 1,
+  "limit": 10,
+  "total": 2
+}
+
+7. GET /movies/search
+Description: Search for movies by keyword in the Movies table.
+
+HTTP Method: GET
+
+URL: /movies/search
+
+Parameters:
+
+Query Parameters:
+keyword (string, required): The keyword to search for.
+Example Request: GET /movies/search?keyword=Inception
+
+Example Response:
+
+{
+  "movies": [
+    {
+      "movie_id": 1,
+      "movie_name": "Inception",
+      "year": 2010,
+      "genre_id": 1,
+      "createdAt": "2024-11-30T13:01:58Z",
+      "updatedAt": "2024-11-30T13:01:58Z"
+    }
+  ]
+}
+
+8. POST /reviews
+Description: Add a new review to the Reviews table.
+
+HTTP Method: POST
+
+URL: /reviews
+
+Parameters:
+
+Body Parameters:
+username (string, required): The username of the reviewer.
+stars (decimal, required): The rating given to the movie.
+review_text (string, optional): The review text.
+movie_id (integer, required): The ID of the movie being reviewed.
+Example Request:
+
+{
+  "username": "johndoe",
+  "stars": 4.5,
+  "review_text": "Great movie!",
+  "movie_id": 1
+}
+Example Response:
+
+{
+  "review_id": 1,
+  "username": "johndoe",
+  "stars": 4.5,
+  "review_text": "Great movie!",
+  "movie_id": 1,
+  "createdAt": "2024-11-30T13:01:58Z",
+  "updatedAt": "2024-11-30T13:01:58Z"
+}
+
+9. POST /favorites
+Description: Add a movie to a user’s favorites in the Favorites table.
+
+HTTP Method: POST
+
+URL: /favorites
+
+Parameters:
+
+Body Parameters:
+username (string, required): The username of the user.
+movie_id (integer, required): The ID of the movie.
+Example Request:
+
+{
+  "username": "johndoe",
+  "movie_id": 1
+}
+Example Response:
+
+{
+  "favorite_id": 1,
+  "username": "johndoe",
+  "movie_id": 1,
+  "createdAt": "2024-11-30T13:01:58Z",
+  "updatedAt": "2024-11-30T13:01:58Z"
+}
+
+10. GET /favorites/:username
+Description: Retrieve a user’s favorite movies from the Favorites table.
+
+HTTP Method: GET
+
+URL: /favorites/:username
+
+Parameters:
+
+Path Parameter:
+username (string, required): The username of the user.
+Example Request: GET /favorites/johndoe
+
+Example Response:
+
+{
+  "username": "johndoe",
+  "favorites": [
+    {
+      "movie_id": 1,
+      "movie_name": "Inception",
+      "year": 2010,
+      "genre_id": 1,
+      "createdAt": "2024-11-30T13:01:58Z",
+      "updatedAt": "2024-11-30T13:01:58Z"
+    }
+  ]
+}
