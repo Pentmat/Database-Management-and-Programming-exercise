@@ -9,10 +9,10 @@ const PORT = 3001;
 
 
 const pool = new Pool({
-    user: 'postgres',
-    host: '127.0.0.1',
-    database: 'postgres',
-    password: '',
+    user: 'INSERT USERNAME',
+    host: 'INSERT HOSTNAME',
+    database: 'INSERT DATABASENAME',
+    password: 'INSERT DATABASE PASSWORD',
     port: 5432, // default PostgreSQL port
 });
 
